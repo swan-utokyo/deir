@@ -1,9 +1,8 @@
-# Notice
-***This repository is under construction. More information will be available soon.***
-
 # About
 This repository implements __Discriminative-model-based Episodic Intrinsic Reward (DEIR)__, an exploration method for reinforcement learning that has been found to be particularly effective in environments with stochasticity and partial observability.
 More details can be found in the original paper "_DEIR: Efficient and Robust Exploration through Discriminative-Model-Based Episodic Intrinsic Rewards_" ([arXiv preprint](https://arxiv.org/abs/2304.10770), to appear at [IJCAI 2023](https://ijcai-23.org/)).
+
+Video demo of DEIR: (1) [Introduction & MiniGrid demo](https://youtu.be/VDnkFuGKZC0), (2) [ProcGen demo](https://youtu.be/ljmiXwKq1u8).
 
 Our PPO implementation is based on [Stable Baselines 3](https://github.com/DLR-RM/stable-baselines3/tree/master). In case you are mainly interested in the implementation of DEIR, its major components can be found at [src/algo/intrinsic_rewards/deir.py](https://github.com/swan-utokyo/deir/blob/main/src/algo/intrinsic_rewards/deir.py).
 
