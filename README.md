@@ -71,3 +71,14 @@ PYTHONPATH=./ python3 src/train.py \
   --model_cnn_norm=LayerNorm --model_mlp_norm=NoNorm \
   --adv_norm=0 --adv_eps=1e-5 --adv_momentum=0.9
 ```
+
+### Example of Training Baselines
+Please note that the default value of each option in `src/train.py` is optimized for DEIR. For now, when training other methods, please use the corresponding hyperparameter values specified in Table A1 (in our [arXiv preprint](https://arxiv.org/abs/2304.10770)). An example is `--int_rew_coef=3e-2` and `--rnd_err_norm=0` in the below command.
+```commandline
+PYTHONPATH=./ python3 src/train.py \
+  --int_rew_source=NovelD \
+  --env_source=minigrid \
+  --game_name=DoorKey-8x8 \
+  --int_rew_coef=3e-2 \
+  --rnd_err_norm=0
+```
