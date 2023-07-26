@@ -137,8 +137,8 @@ class PPORollout(BaseAlgorithm):
             gae_lambda=self.gae_lambda,
             n_envs=self.n_envs,
             features_dim=self.policy.features_dim,
-            dim_policy_traj=self.policy.dim_policy_traj,
-            dim_model_traj=self.policy.dim_model_traj,
+            dim_policy_traj=self.policy.dim_policy_features,
+            dim_model_traj=self.policy.dim_model_features,
             int_rew_coef=self.int_rew_coef,
             ext_rew_coef=self.ext_rew_coef,
             int_rew_norm=self.int_rew_norm,
@@ -219,8 +219,8 @@ class PPORollout(BaseAlgorithm):
         def float_zeros(tensor_shape):
             return th.zeros(tensor_shape, device=self.device, dtype=th.float32)
 
-        self._last_policy_mems = float_zeros([self.n_envs, self.policy.gru_layers, self.policy.dim_policy_traj])
-        self._last_model_mems = float_zeros([self.n_envs, self.policy.gru_layers, self.policy.dim_model_traj])
+        self._last_policy_mems = float_zeros([self.n_envs, self.policy.gru_layers, self.policy.dim_policy_features])
+        self._last_model_mems = float_zeros([self.n_envs, self.policy.gru_layers, self.policy.dim_model_features])
 
 
     def init_on_rollout_start(self):

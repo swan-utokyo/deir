@@ -49,6 +49,7 @@ class NGUModel(IntrinsicRewardBaseModel):
         rnd_err_momentum: float = -1,
         rnd_use_policy_emb: int = 1,
         policy_cnn: Type[nn.Module] = None,
+        policy_rnns: Type[nn.Module] = None,
     ):
         super().__init__(observation_space, action_space, activation_fn, normalize_images,
                          optimizer_class, optimizer_kwargs, max_grad_norm, model_learning_rate,
@@ -58,6 +59,7 @@ class NGUModel(IntrinsicRewardBaseModel):
                          gru_layers, use_status_predictor)
 
         self.policy_cnn = policy_cnn
+        self.policy_rnns = policy_rnns
         self.ngu_knn_k = ngu_knn_k
         self.ngu_use_rnd = ngu_use_rnd
         self.ngu_dst_momentum = ngu_dst_momentum

@@ -117,19 +117,19 @@ class PPOModel(ActorCriticCnnPolicy):
         if isinstance(observation_space, gym.spaces.Dict):
             observation_space = observation_space["rgb"]
 
-        self.dim_policy_traj = self.policy_features_extractor_kwargs['features_dim']
-        self.dim_model_traj = self.model_features_dim
+        self.dim_policy_features = self.policy_features_extractor_kwargs['features_dim']
+        self.dim_model_features = self.model_features_dim
 
         self.policy_mlp_common_kwargs = dict(
-            inputs_dim = self.dim_policy_traj,
+            inputs_dim = self.dim_policy_features,
             latents_dim = self.latents_dim,
             activation_fn = self.activation_fn,
             mlp_norm = self.policy_mlp_norm,
             mlp_layers = self.policy_mlp_layers,
         )
         self.policy_rnn_kwargs = dict(
-            input_size=self.dim_policy_traj,
-            hidden_size=self.dim_policy_traj,
+            input_size=self.dim_policy_features,
+            hidden_size=self.dim_policy_features,
         )
         if self.policy_gru_norm != NormType.NoNorm:
             self.policy_rnn_kwargs.update(dict(
@@ -207,6 +207,7 @@ class PPOModel(ActorCriticCnnPolicy):
                 rnd_err_momentum=self.rnd_err_momentum,
                 rnd_use_policy_emb=self.rnd_use_policy_emb,
                 policy_cnn=self.features_extractor,
+                policy_rnns=self.policy_rnns,
             )
         if self.int_rew_source == ModelType.NGU:
             self.int_rew_model = NGUModel(
@@ -218,6 +219,7 @@ class PPOModel(ActorCriticCnnPolicy):
                 rnd_err_momentum=self.rnd_err_momentum,
                 rnd_use_policy_emb=self.rnd_use_policy_emb,
                 policy_cnn=self.features_extractor,
+                policy_rnns=self.policy_rnns,
             )
         if self.int_rew_source == ModelType.NovelD:
             self.int_rew_model = NovelDModel(
@@ -226,12 +228,14 @@ class PPOModel(ActorCriticCnnPolicy):
                 rnd_err_momentum=self.rnd_err_momentum,
                 rnd_use_policy_emb=self.rnd_use_policy_emb,
                 policy_cnn=self.features_extractor,
+                policy_rnns=self.policy_rnns,
             )
 
     def _build_mlp_extractor(self) -> None:
         self.mlp_extractor = PolicyValueOutputHeads(
             **self.policy_mlp_common_kwargs
         )
+
     def _build(self, lr_schedule: Schedule) -> None:
         super()._build(lr_schedule)
         # Build RNNs

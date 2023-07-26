@@ -37,6 +37,7 @@ class NovelDModel(IntrinsicRewardBaseModel):
         rnd_err_momentum: float = -1.0,
         rnd_use_policy_emb: int = 1,
         policy_cnn: Type[nn.Module] = None,
+        policy_rnns: Type[nn.Module] = None,
     ):
         super().__init__(observation_space, action_space, activation_fn, normalize_images,
                          optimizer_class, optimizer_kwargs, max_grad_norm, model_learning_rate,
@@ -46,6 +47,7 @@ class NovelDModel(IntrinsicRewardBaseModel):
                          gru_layers, use_status_predictor)
 
         self.policy_cnn = policy_cnn
+        self.policy_rnns = policy_rnns
         self.rnd_use_policy_emb = rnd_use_policy_emb
         self.rnd_err_norm = rnd_err_norm
         self.rnd_err_momentum = rnd_err_momentum
